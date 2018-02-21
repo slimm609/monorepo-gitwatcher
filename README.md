@@ -11,3 +11,20 @@ if [[ "x$trigger_build" == "xfalse" ]]; then
   exit
 fi
 ```
+
+example of a pipeline job
+```
+stage('example job') {
+            when {
+                expression {
+                    return "true" == sh(returnStdout: true, script: './tools/detectGitChanges.sh path/to/folders.watch | tail -n 1').trim()
+                }
+            }
+            steps {
+                build job: 'job-to-run', wait: true
+                script {
+                     env.CHANGES = "true"
+                }
+            }
+        }
+```
