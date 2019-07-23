@@ -28,3 +28,17 @@ stage('example job') {
             }
         }
 ```
+
+
+Gitlab CI pipeline example
+```
+deploy_unit_abc:
+  <<: *setup
+  stage: deploy
+  only:
+    - master
+  script:
+    - detectGitChanges.sh folder/folders.watch docker-compose build ${CI_JOB_NAME#*_*_}
+  artifacts:
+    expire_in: 1 week
+```
